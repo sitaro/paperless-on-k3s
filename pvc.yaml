@@ -37,19 +37,19 @@ spec:
     requests:
       storage: 8Gi
   storageClassName: paperless-redis-volume
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: paperless-media-claim
-#   namespace: paperless
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 32Gi
-#   storageClassName: longhorn
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-media-claim
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 32Gi
+  storageClassName: paperless-media-volume
 # ---
 # apiVersion: v1
 # kind: PersistentVolumeClaim
