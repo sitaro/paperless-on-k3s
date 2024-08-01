@@ -1,0 +1,90 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-volume
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 8Gi
+  storageClassName: paperless-data-volume
+  hostPath:
+    path: /data/paperless/data
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: db-volume
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 8Gi
+  storageClassName: paperless-db-volume
+  hostPath:
+    path: /data/paperless/db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis-volume
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 8Gi
+  storageClassName: paperless-redis-volume
+  hostPath:
+    path: /data/paperless/redis
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: media-volume
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 32Gi
+  storageClassName: paperless-media-volume
+  hostPath:
+    path: /data/paperless/media
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: export-volume
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 8Gi
+  storageClassName: paperless-export-volume
+  hostPath:
+    path: /data/paperless/export
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: consume-volume
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 8Gi
+  storageClassName: paperless-consume-volume
+  hostPath:
+    path: /data/paperless/consume
