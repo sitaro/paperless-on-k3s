@@ -205,9 +205,6 @@ spec:
         image: redis:6
         ports:
         - containerPort: 6379
-        envFrom:
-        - configMapRef:
-            name: redis-config
         volumeMounts:
         - name: redis-storage
           mountPath: /data
