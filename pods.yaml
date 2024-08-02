@@ -223,7 +223,7 @@ spec:
         - name: consume-storage
           mountPath: /usr/src/paperless/consume
         ports:
-          containerPort: 8000
+        - containerPort: 8000
       volumes:
       - name: postgres-storage
         persistentVolumeClaim:
