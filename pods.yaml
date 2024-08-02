@@ -195,7 +195,7 @@ spec:
         image: postgres:13
         envFrom:
         - configMapRef:
-            name: postgres-config
+            name: paperless-env
         ports:
         - containerPort: 5432
         volumeMounts:
