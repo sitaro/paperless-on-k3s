@@ -184,11 +184,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: paperless-backend
   template:
     metadata:
       labels:
-        app: postgres
+        app: paperless-backend
     spec:
       containers:
       - name: postgres
