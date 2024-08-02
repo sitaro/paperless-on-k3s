@@ -195,7 +195,7 @@ spec:
         image: postgres:13
         envFrom:
         - configMapRef:
-            name: paperless-env
+            name: postgres-env
         ports:
         - containerPort: 5432
         volumeMounts:
@@ -208,6 +208,22 @@ spec:
         volumeMounts:
         - name: redis-storage
           mountPath: /data
+      - name: webserver
+        image: paperless-ngx:latest
+        envFrom:
+        - configMapRef:
+            name: paperless-env
+        volumeMounts:
+        - name: data-storage
+          mountPath: /usr/src/paperless/data
+        - name: media-storage
+          mountPath: /usr/src/paperless/media
+        - name: export-storage
+          mountPath: /usr/src/paperless/export
+        - name: consume-storage
+          mountPath: /usr/src/paperless/consume
+        ports:
+          containerPort: 8000
       volumes:
       - name: postgres-storage
         persistentVolumeClaim:
@@ -215,3 +231,15 @@ spec:
       - name: redis-storage
         persistentVolumeClaim:
           claimName: paperless-redis-claim
+      - name: data-storage
+        persistentVolumeClaim:
+          claimName: paperless-data-claim
+      - name: media-storage
+        persistentVolumeClaim:
+          claimName: paperless-media-claim
+      - name: export-storage
+        persistentVolumeClaim:
+          claimName: paperless-export-claim
+      - name: consume-storage
+        persistentVolumeClaim:
+          claimName: paperless-consume-claim

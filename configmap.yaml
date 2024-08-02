@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: paperless-env
+  name: postgres-env
   namespace: paperless
 data:
   POSTGRES_DB: "db"
@@ -10,3 +10,19 @@ data:
   POSTGRES_PASSWORD: "paperless"  # Achtung: In der Praxis sollten Sie ein Secret für Passwörter verwenden
   POSTGRES_PORT: "5432"
   PGDATA: "/var/lib/postgresql/data/pgdata"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: paperless-env
+  namespace: paperless
+data:
+  PAPERLESS_REDIS: redis://broker:6379
+  PAPERLESS_DBHOST: db
+  PAPERLESS_TIKA_ENABLED: 0
+  PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
+  PAPERLESS_TIKA_ENDPOINT: http://tika:9998
+  PAPERLESS_URL: https://paperless.mathops.info
+  PAPERLESS_TIME_ZONE: Europe/Berlin
+  PAPERLESS_OCR_LANGUAGE: deu
+  PAPERLESS_SECRET_KEY: '){GGcEJaf-j+v(-4pDtlJ|H&.N)ITn<s*Tj1K)-d+d7X8;eNMu+(1_4x83tXnkLj'
