@@ -217,4 +217,4 @@ spec:
           claimName: paperless-db-claim
       - name: redis-storage
         persistentVolumeClaim:
-          claimName: paperless-redis-volume
+          claimName: paperless-redis-claim
