@@ -35,28 +35,28 @@
 #   - name: paperless-db-data
 #     persistentVolumeClaim:
 #       claimName: paperless-db-claim
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: db
-  namespace: paperless
-spec:
-  containers:
-    - name: postgres
-      image: postgres:13
-      envFrom:
-      - configMapRef:
-          name: paperless-env
-      ports:
-      - containerPort: 5432
-      volumeMounts:
-      - name: postgres-storage
-        mountPath: /var/lib/postgresql/data
-  volumes:
-  - name: postgres-storage
-    persistentVolumeClaim:
-      claimName: paperless-db-claim
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: db
+#   namespace: paperless
+# spec:
+#   containers:
+#     - name: postgres
+#       image: postgres:13
+#       envFrom:
+#       - configMapRef:
+#           name: paperless-env
+#       ports:
+#       - containerPort: 5432
+#       volumeMounts:
+#       - name: postgres-storage
+#         mountPath: /var/lib/postgresql/data
+#   volumes:
+#   - name: postgres-storage
+#     persistentVolumeClaim:
+#       claimName: paperless-db-claim
 # ---
 # apiVersion: v1
 # kind: Pod
@@ -173,3 +173,34 @@ spec:
 #     - protocol: TCP
 #       port: 8000
 #       targetPort: 8000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13
+        envFrom:
+        - configMapRef:
+            name: postgres-config
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: paperless-db-claim
