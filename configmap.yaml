@@ -5,7 +5,7 @@ metadata:
   name: postgres-env
   namespace: paperless
 data:
-  POSTGRES_DB: "db"
+  POSTGRES_DB: "paperless"
   POSTGRES_USER: "paperless"
   POSTGRES_PASSWORD: "paperless"  # Achtung: In der Praxis sollten Sie ein Secret für Passwörter verwenden
   POSTGRES_PORT: "5432"
