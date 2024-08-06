@@ -32,7 +32,7 @@ metadata:
   namespace: paperless
 spec:
   selector:
-    app: paperless-backend
+    app: webserver
     namespace: paperless
   ports:
     - protocol: TCP
