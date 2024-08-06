@@ -30,6 +30,8 @@ kind: Service
 metadata:
   name: webserver
   namespace: paperless
+  labels:
+    app: webserver
 spec:
   selector:
     app: webserver
