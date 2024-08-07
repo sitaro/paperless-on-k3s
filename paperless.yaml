@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
       - name: paperless
-        image: your-paperless-image:tag  # Ersetzen Sie dies durch Ihr tatsächliches Image
+        image: ghcr.io/paperless-ngx/paperless-ngx:latest
         envFrom:
         - configMapRef:
             name: paperless-env
