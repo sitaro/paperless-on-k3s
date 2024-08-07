@@ -29,14 +29,9 @@ spec:
       containers:
       - name: postgres
         image: postgres:13
-        env:
-        - name: POSTGRES_DB
-          value: paperless
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-secrets
-              key: postgres-password
+        envFrom:
+        - configMapRef:
+            name: postgres-env
         ports:
         - containerPort: 5432
         volumeMounts:
