@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: data-volume
+  name: paperless-data-volume
   namespace: paperless
 spec:
   accessModes:
@@ -17,7 +17,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: db-volume
+  name: paperless-db-volume
   namespace: paperless
 spec:
   accessModes:
@@ -32,7 +32,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: redis-volume
+  name: paperless-redis-volume
   namespace: paperless
 spec:
   accessModes:
@@ -47,7 +47,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: media-volume
+  name: paperless-media-volume
   namespace: paperless
 spec:
   accessModes:
@@ -62,7 +62,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: export-volume
+  name: paperless-export-volume
   namespace: paperless
 spec:
   accessModes:
@@ -77,7 +77,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: consume-volume
+  name: paperless-consume-volume
   namespace: paperless
 spec:
   accessModes:
