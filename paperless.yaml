@@ -8,6 +8,7 @@ data:
   PAPERLESS_REDIS: redis://broker:6379
   PAPERLESS_DBHOST: db
   PAPERLESS_PORT: "8000"
+  PAPERLESS_URL: https://ppl.mathops.info
 ---
 apiVersion: apps/v1
 kind: Deployment
