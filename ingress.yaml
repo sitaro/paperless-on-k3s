@@ -3,10 +3,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: paperless-ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
+  ingressClassName: traefik
   tls:
   - hosts:
     - ppl.mathops.info
