@@ -3,6 +3,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: execute-command-in-pod
+  namespace: paperless
 spec:
   schedule: "0 2 * * *"  # Führt um 2:00 Uhr jeden Tag aus
   jobTemplate:
