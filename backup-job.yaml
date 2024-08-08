@@ -1,0 +1,21 @@
+execute-command-in-pod
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: execute-command-in-pod
+spec:
+  schedule: "0 2 * * *"  # Führt um 2:00 Uhr jeden Tag aus
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: cronjob-executor
+          containers:
+          - name: kubectl
+            image: bitnami/kubectl:latest
+            command:
+            - /bin/sh
+            - -c
+            - >
+              kubectl get pod -n paperless -l app=your-app-label -o jsonpath='{.items[0].metadata.name}' | xargs -I {} kubectl exec -n paperless {} -- export_documents ../export
+          restartPolicy: OnFailure
