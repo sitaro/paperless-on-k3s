@@ -5,7 +5,7 @@ metadata:
   name: execute-command-in-pod
   namespace: paperless
 spec:
-  schedule: "0 14 * * *"  # Führt um 2:00 Uhr jeden Tag aus
+  schedule: "30 14 * * *"  # Führt um 2:00 Uhr jeden Tag aus
   jobTemplate:
     spec:
       template:
@@ -18,7 +18,7 @@ spec:
             - /bin/sh
             - -c
             - >
-              kubectl get pod -n paperless -l app=your-app-label -o jsonpath='{.items[0].metadata.name}' | xargs -I {} kubectl exec -n paperless {} -- export_documents ../export
+              kubectl get pod -n paperless -l app=paperless -o jsonpath='{.items[0].metadata.name}' | xargs -I {} kubectl exec -n paperless {} -- export_documents ../export
           restartPolicy: OnFailure
 ---
 apiVersion: v1
