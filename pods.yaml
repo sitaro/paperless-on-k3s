@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  namespace: paperless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13
+        envFrom:
+        - configMapRef:
+            name: postgres-env
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+      - name: broker
+        image: redis:6
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - name: redis-storage
+          mountPath: /data
+      - name: webserver
+        image: ghcr.io/paperless-ngx/paperless-ngx:latest
+        envFrom:
+        - configMapRef:
+            name: paperless-env
+        volumeMounts:
+        - name: data-storage
+          mountPath: /usr/src/paperless/data
+        - name: media-storage
+          mountPath: /usr/src/paperless/media
+        - name: export-storage
+          mountPath: /usr/src/paperless/export
+        - name: consume-storage
+          mountPath: /usr/src/paperless/consume
+        ports:
+        - containerPort: 8000
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: paperless-db-claim
+      - name: redis-storage
+        persistentVolumeClaim:
+          claimName: paperless-redis-claim
+      - name: data-storage
+        persistentVolumeClaim:
+          claimName: paperless-data-claim
+      - name: media-storage
+        persistentVolumeClaim:
+          claimName: paperless-media-claim
+      - name: export-storage
+        persistentVolumeClaim:
+          claimName: paperless-export-claim
+      - name: consume-storage
+        persistentVolumeClaim:
+          claimName: paperless-consume-claim
