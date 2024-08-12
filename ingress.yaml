@@ -2,14 +2,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ppl-mathops-ingress
+  name: paperless-ingress
   namespace: paperless
 spec:
   ingressClassName: traefik
   tls:
   - hosts:
     - ppl.mathops.info
-    secretName: ppl-mathops-tls
+    secretName: paperless-tls
   rules:
   - host: ppl.mathops.info
     http:
@@ -18,6 +18,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: webserver
+            name: paperless
             port: 
               number: 8000

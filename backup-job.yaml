@@ -1,0 +1,54 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: execute-command-in-pod
+  namespace: paperless
+spec:
+  schedule: "48 14 * * *"  # Führt um 2:00 Uhr jeden Tag aus
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: cronjob-executor
+          containers:
+          - name: kubectl
+            image: bitnami/kubectl:latest
+            command:
+            - /bin/sh
+            - -c
+            - >
+              kubectl get pod -n paperless -l app=paperless -o jsonpath='{.items[0].metadata.name}' | xargs -I {} kubectl exec -n paperless {} -- document_exporter ../export -z
+          restartPolicy: OnFailure
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cronjob-executor
+  namespace: paperless
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-executor
+  namespace: paperless
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["pods/exec"]
+  verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cronjob-executor-binding
+  namespace: paperless
+subjects:
+- kind: ServiceAccount
+  name: cronjob-executor
+roleRef:
+  kind: Role
+  name: pod-executor
+  apiGroup: rbac.authorization.k8s.io
