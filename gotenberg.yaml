@@ -22,3 +22,16 @@ spec:
         command: ["gotenberg"]
         args: ["--chromium-disable-javascript=true", "--chromium-allow-list=file:///tmp/.*"]
       restartPolicy: Always  # In Kubernetes, "UnlessStopped" übersetzt zu "Always"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gotenberg
+  namespace: paperless
+spec:
+  selector:
+    app: gotenperg
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

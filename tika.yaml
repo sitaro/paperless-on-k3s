@@ -21,3 +21,16 @@ spec:
         image: docker.io/apache/tika:latest
         # Keine speziellen Befehle oder Argumente notwendig, standardmäßig
       restartPolicy: Always  # Da "UnlessStopped" in Kubernetes als "Always" behandelt wird
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tika
+  namespace: paperless
+spec:
+  selector:
+    app: tika
+  ports:
+    - protocol: TCP
+      port: 9998
+      targetPort: 9998
