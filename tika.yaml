@@ -20,6 +20,8 @@ spec:
       - name: tika
         image: docker.io/apache/tika:latest
         # Keine speziellen Befehle oder Argumente notwendig, standardmäßig
+        ports:
+        - containerPort: 9998
       restartPolicy: Always  # Da "UnlessStopped" in Kubernetes als "Always" behandelt wird
 ---
 apiVersion: v1

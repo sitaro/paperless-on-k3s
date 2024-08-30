@@ -21,6 +21,8 @@ spec:
         image: docker.io/gotenberg/gotenberg:8.7
         command: ["gotenberg"]
         args: ["--chromium-disable-javascript=true", "--chromium-allow-list=file:///tmp/.*"]
+        ports:
+        - containerPort: 3000
       restartPolicy: Always  # In Kubernetes, "UnlessStopped" übersetzt zu "Always"
 ---
 apiVersion: v1
