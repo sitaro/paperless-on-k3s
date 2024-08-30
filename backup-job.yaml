@@ -5,7 +5,7 @@ metadata:
   name: execute-command-in-pod
   namespace: paperless
 spec:
-  schedule: "48 14 * * *"  # Führt um 2:00 Uhr jeden Tag aus
+  schedule: "0 2 * * *"  # Führt um 2:00 Uhr jeden Tag aus
   jobTemplate:
     spec:
       template:

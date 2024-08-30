@@ -9,6 +9,7 @@ data:
   PAPERLESS_DBHOST: db
   PAPERLESS_PORT: "8000"
   PAPERLESS_URL: https://ppl.mathops.info
+  PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
 ---
 apiVersion: apps/v1
 kind: Deployment
