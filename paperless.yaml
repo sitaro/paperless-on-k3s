@@ -7,6 +7,7 @@ metadata:
 data:
   PAPERLESS_REDIS: redis://broker:6379
   PAPERLESS_DBHOST: db
+  PAPERLESS_DBENGINE: postgresql  # v3: Pflicht
   PAPERLESS_PORT: "8000"
   PAPERLESS_URL: https://ppl.mathops.info
   PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
@@ -15,6 +16,9 @@ data:
   PAPERLESS_OCR_LANGUAGE: deu
   PAPERLESS_TIKA_ENABLED: "1"
   #PAPERLESS_OCR_MODE: "force"
+  # v3: v2-Verhalten beibehalten (immer Archiv-PDF, Duplikate ablehnen)
+  PAPERLESS_ARCHIVE_FILE_GENERATION: always
+  PAPERLESS_CONSUMER_DELETE_DUPLICATES: "true"
   # CSRF Fix für zweite Domain
   PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://ppl.mathops.info,https://ppl.gemaris.paezolt.com"
   PAPERLESS_ALLOWED_HOSTS: "ppl.mathops.info,ppl.gemaris.paezolt.com"
@@ -37,10 +41,14 @@ spec:
     spec:
       containers:
       - name: paperless
-        image: ghcr.io/paperless-ngx/paperless-ngx:2.20.15
+        image: ghcr.io/paperless-ngx/paperless-ngx:3.3.4
         envFrom:
         - configMapRef:
             name: paperless-env
+        # PAPERLESS_SECRET_KEY (v3: Pflicht), nicht im Repo:
+        # kubectl create secret generic paperless-secret -n paperless --from-literal=PAPERLESS_SECRET_KEY=...
+        - secretRef:
+            name: paperless-secret
         volumeMounts:
         - name: data-storage
           mountPath: /usr/src/paperless/data
