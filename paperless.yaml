@@ -19,6 +19,16 @@ data:
   # v3: v2-Verhalten beibehalten (immer Archiv-PDF, Duplikate ablehnen)
   PAPERLESS_ARCHIVE_FILE_GENERATION: always
   PAPERLESS_CONSUMER_DELETE_DUPLICATES: "true"
+  # KI (seit 2026-10-27): Claude über Anthropics OpenAI-kompatible Schnittstelle, Schlüssel im Secret paperless-ai
+  PAPERLESS_AI_ENABLED: "true"
+  PAPERLESS_AI_LLM_BACKEND: openai-like
+  PAPERLESS_AI_LLM_ENDPOINT: https://api.anthropic.com/v1/
+  PAPERLESS_AI_LLM_MODEL: claude-haiku-5-5
+  PAPERLESS_AI_LLM_OUTPUT_LANGUAGE: German
+  PAPERLESS_AI_LLM_EXTRA_PARAMS: '{"max_tokens": 4096, "temperature": 1}'  # Haiku 5.5 lehnt abweichende temperature ab
+  # Embeddings für den Dokument-Chat lokal (Claude bietet keine Embeddings), mehrsprachiges Modell
+  PAPERLESS_AI_LLM_EMBEDDING_BACKEND: huggingface
+  PAPERLESS_AI_LLM_EMBEDDING_MODEL: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
   # CSRF Fix für zweite Domain
   PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://ppl.mathops.info,https://ppl.gemaris.paezolt.com"
   PAPERLESS_ALLOWED_HOSTS: "ppl.mathops.info,ppl.gemaris.paezolt.com"
@@ -49,6 +59,8 @@ spec:
         # kubectl create secret generic paperless-secret -n paperless --from-literal=PAPERLESS_SECRET_KEY=...
         - secretRef:
             name: paperless-secret
+        - secretRef:
+            name: paperless-ai
         volumeMounts:
         - name: data-storage
           mountPath: /usr/src/paperless/data
