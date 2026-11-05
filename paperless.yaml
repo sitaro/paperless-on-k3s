@@ -51,7 +51,7 @@ spec:
     spec:
       containers:
       - name: paperless
-        image: ghcr.io/paperless-ngx/paperless-ngx:3.3.4
+        image: ghcr.io/paperless-ngx/paperless-ngx:3.4.2
         envFrom:
         - configMapRef:
             name: paperless-env
